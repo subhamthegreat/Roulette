@@ -1,13 +1,13 @@
 public class VIPPlayer extends Player{
 
-    int initialMoney;
-    String playerName;
-    String idNumber;
-    int totalBetAmount;
+    public int initialMoney;
+    public String playerName;
+    public String idNumber;
+    public int totalBetAmount;
 
     public VIPPlayer(String playerName, int initialMoney, String idNumber) {
 
-        super(playerName, initialMoney); // parent constructor
+        super(1, Integer.parseInt(idNumber),initialMoney, playerName); // parent constructor
 
         this.playerName = playerName;
         this.idNumber = idNumber;
