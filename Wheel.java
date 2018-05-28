@@ -1,110 +1,115 @@
-//**********************************
-
-
-
-
-//  EDITED BY SUBHAM
-
-
-
-//************************************
 import java.util.Random;
 
-//************************************************************************
-//   Class Wheel represents a roulette wheel and its operations.  Its
-//   data and methods are static because there is only one wheel.
-//************************************************************************
-class Wheel
-{
-    // public name constants -- accessible to others
-    public final static int BLACK     =  0;			// even numbers
-    public final static int RED       =  1;			// odd numbers
-    public final static int GREEN     =  2;			// 00 OR 0
-    public final static int NUMBER    =  3;			// number bet
-    public final static int MIN_NUM   =  1;			// smallest number to bet
-    public final static int MAX_NUM   = 14;			// largest number to bet
-    public final static int MAX_BET   = 10;			// largest amount to bet
-    public final static int MIN_BET   = 1;			// smallest number to bet
-    public static int   HOUSENETWINS  = 0;
+class Wheel {
+    public final static int BLACK = 0; // even numbers
+    public final static int RED = 1; // odd numbers
+    public final static int GREEN = 2; // 00 OR 0
+    public final static int NUMBER = 3; // number bet
+    public final static int MIN_NUM = 1; // smallest number to bet
+    public final static int MAX_NUM = 36; // largest number to bet
+    // needs to get minimum and maximum bet for each game
+
+
+    public static int transactionNum = 0;
+    public static int roundNumber = 0;
 
     // private name constants -- internal use only
-    private final static int MAX_POSITIONS = 16;	// number of positions on wheel
-    private final static int NUMBER_PAYOFF = 14;	// payoff for number bet
-    private final static int COLOR_PAYOFF  = 2;		// payoff for color bet
-
-    // private variables -- internal use only
-    private static int ballPosition;				// 00, 0, 1 .. 14
+    public final static int MAX_POSITIONS = 35; // number of positions on wheel
+    public final static int NUMBER_PAYOFF = 14; // payoff for number bet
+    public final static int COLOR_PAYOFF = 2; // payoff for color bet
+    private static int ballPosition; // 00, 0, 1 .. 14
     private static int color; // GREEN, RED, OR BLACK
-    private static String colorString;
+    // I have removed MIN_BET and MAX_BET.
+    public static int bt;
 
 
-    //=====================================================================
-    //  Presents welcome message
-    //=====================================================================
-    public static void welcomeMessage()
-    {
-        System.out.println("Welcome to a simple version of roulette game.");
-        System.out.println("You can place a bet on black, red, or a number.");
-        System.out.println("A color bet is paid " + COLOR_PAYOFF + " the bet amount.");
-        System.out.println("A number bet is paid " + NUMBER_PAYOFF + " the bet amount.");
-        System.out.println("You can bet on a number from " + MIN_NUM + " to " + MAX_NUM + ".");
-        System.out.println("You can bet an amount between $" + MIN_BET + " and $" + MAX_BET + ".");
-        System.out.println("Gamble responsibly.  Have fun and good luck!\n");
-    }
+    public static int payoutAmount;
 
 
-    //=====================================================================
-    //  Presents betting options
-    //=====================================================================
-    public static void betOptions()
-    {
+
+    public static void betOptions() {
         System.out.println("Betting Options:");
         System.out.println("    1. Bet on black (even numbers)");
         System.out.println("    2. Bet on red (odd numbers)");
-        System.out.println("    3. Bet on a number between " + MIN_NUM +
-                " and " + MAX_NUM);
+        System.out.println("    3. Bet on a number between " + MIN_NUM + " and " + MAX_POSITIONS);
         System.out.println();
     }
 
-    public static void Spin() {
-
-        Random rand = new Random();
-        int spinResult = rand.nextInt(15);
-        if (spinResult != 0) {
-            ballPosition = spinResult - 1;
-            if (spinResult % 2 == 0) {
-                color = BLACK;
-                colorString = "BLACK";
-            }
-            else {
-                color = RED;
-                colorString = "RED";
-            }
-        }
-        else {
+    public static void spin() {
+        Random ran = new Random();
+        roundNumber++;
+        ballPosition = ran.nextInt(MAX_NUM + 3) - 1;
+        if (ballPosition == -1 || ballPosition == 0) {
             color = GREEN;
-            colorString = "GREEN";
+            if (ballPosition == -1) {
+                String qw = "00";
+                System.out.println();
+                System.out.println("Color is Green" + " and the number is " + qw);
+            } else {
+                System.out.println();
+                System.out.println("Color: Green" + " ------ Number: " + ballPosition);
+                System.out.println();
+            }
+        } else if (ballPosition > 0 && ballPosition % 2 == 0) {
+            color = BLACK;
+            System.out.println();
+            System.out.println("Color: Black" + " ------ number: " + ballPosition);
+            System.out.println();
+        } else {
+            color = RED;
+            System.out.println();
+            System.out.println("Color:red" + " ------ number: " + ballPosition);
+            System.out.println();
         }
-
-        System.out.println("Number Result: " + ballPosition);
-        System.out.println("Color Landed on: " + colorString);
+        Wheel.bet_result();
+    }
+    public static String bet_result() {
+        return "( "+color+" "+ballPosition+" )";
     }
 
-    public static int payOff(int bet, int betType, int number) {
-        if (betType == NUMBER && number != 0 && ballPosition == number) {
-            bet *= NUMBER_PAYOFF;
-            HOUSENETWINS -= bet;
+    public static int payoff(int bet, int betType, int numberbet) {
+        //for a given game number
+        transactionNum++;
+        if (betType == 1)
+        {
+            bt=1;
+            if (color == 0)
+            {
+                payoutAmount = (bet * COLOR_PAYOFF);
+                return payoutAmount;
+            }
         }
-        else if ((betType == BLACK || betType == RED) && color == betType) {
-            bet *= COLOR_PAYOFF;
-            HOUSENETWINS -= bet;
+        else if (betType == 2)
+        {
+            bt=2;
+            if (color == 1)
+            {
+                payoutAmount = (bet * COLOR_PAYOFF);
+                return payoutAmount;
+            }
         }
-        else {
-            HOUSENETWINS += bet;
-            bet = 0;
+        else if (betType == 3)
+        {
+            bt=3;
+            if (numberbet == (Wheel.ballPosition)) {
+
+                payoutAmount = (bet * NUMBER_PAYOFF);
+                return payoutAmount;
+            }
         }
-        return bet;
+        return 0;
+    }
+
+
+    public static String BetType(){
+        if(bt==1) {
+            return "R";}
+        else if (bt==2) {
+            return "B";
+
+        }
+        else
+            return "N";
     }
 }
-
 
