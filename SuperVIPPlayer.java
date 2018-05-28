@@ -1,6 +1,6 @@
 public class SuperVIPPlayer  extends VIPPlayer{
 
-    int betCount = 0;
+    public int betCount = 0;
 
     public SuperVIPPlayer(String playerName, int initialMoney, String idNumber) {
 
