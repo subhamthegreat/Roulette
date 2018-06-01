@@ -37,4 +37,11 @@ public class Dis {
         }
 
     }
+    public static void playerOption()
+    {
+        System.out.println("1. Play a round");
+        System.out.println("2. Multiple bets"); //Keep calling wheel class and store results of placed bets, then check after spin
+        System.out.println("3. Add more money to existing player");
+        System.out.println("4. Skip a round (max 2)");
+    }
 }
