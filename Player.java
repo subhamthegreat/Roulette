@@ -18,6 +18,7 @@ class Player {
     public Player(int initialMoney) {
 
         this.initalMoney = initialMoney;
+        money = initialMoney;
         playerType = 0;
 
     }
@@ -65,7 +66,7 @@ class Player {
             }
         }
         money -= bet;
-        Housemoney += bet;
+        Game.houseMoney += bet;
         Wheel.betOptions();
         System.out.print("Enter the number to command for bet:");
         betType = scan.nextInt();
@@ -103,7 +104,7 @@ class Player {
             money += bet;
             System.out.println("New Balance: " + (money));
         }
-        Housemoney -= Wheel.payoff(bet, betType, number);
+        Game.houseMoney -= Wheel.payoff(bet, betType, number);
     }
 
 
@@ -132,9 +133,8 @@ class Player {
                 result = "Total money lost by " + name + " is $" + (result1 + count * initalMoney);
             }
         }
-        System.out.println(" Housemoney because of " + name + ":$" + Housemoney);
+        System.out.println(" Housemoney because of " + name + ":$" + Game.houseMoney);
         System.out.println();
         return result;
     } // method toString
 }
-
