@@ -77,10 +77,11 @@ class Player {
         if (betType == Wheel.NUMBER) {
             System.out.print("Enter the number to bet on:");
             number = scan.nextInt();
-            while (number >= Wheel.MIN_NUM || number <= Wheel.MAX_POSITIONS) {
-                System.out.print("Invalid Input. Please enter number between 1 to 14:");
+            while (number <= Wheel.MIN_NUM || number >= Wheel.MAX_NUM) {
+                System.out.print("Invalid Input. Please enter number between 1 to 35:");
                 number = scan.nextInt();
             }
+            this.payment();
         }
 
 
@@ -97,12 +98,11 @@ class Player {
     public void payment() {
         money = money + Wheel.payoff(bet, betType, number);
         System.out.println(name + " won: " + Wheel.payoff(bet, betType, number));
-        if (Wheel.payoff(bet, betType, number) == 0) {
-            System.out.println("New Balance: " + (money));
 
-        } else {
+        if (Wheel.payoff(bet, betType, number) != 0) {
+
             money += bet;
-            System.out.println("New Balance: " + (money));
+
         }
         Game.houseMoney -= Wheel.payoff(bet, betType, number);
     }
