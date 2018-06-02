@@ -1,7 +1,6 @@
-import java.util.ArrayList;
-        import java.util.LinkedList;
-        import java.util.Queue;
-        import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
 
 public class Implementation {
 
@@ -71,20 +70,20 @@ public class Implementation {
 
 
 
-
-
-
                                         Dis.playerOption();
                                         int opt3 = scan.nextInt();
 
                                         if(opt3 == 1)
                                         {
-                                            for (int x=0;x<Mainpp.gameList.size();x++)
+                                            for (int x = 0; x < Mainpp.gameList.size(); x++)
                                             {
 
                                                 Dis.display3();
                                                 Wheel.betOptions();
-                                                Mainpp.gameList.get(x).makeBet(scan);
+                                               //Mainpp.gameList.get(x).makeBet(scan);
+                                                for(int play = 0; i < Mainpp.gameList.get(x).playersInGame.size(); play++) {
+                                                    Mainpp.gameList.get(x).playersInGame.get(play).makeBet(scan);
+                                                }
                                             }
 
 
