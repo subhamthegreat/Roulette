@@ -47,7 +47,7 @@ public class Implementation {
                                 gameIndex = i;
                                 boolean z = false;
                                 tracker++;
-                                while (z == false) {  // setting up game menu functionality
+                                while (z == false) {  // setting up GAME MENU functionality
 
                                     Dis.display2();
 
@@ -66,32 +66,35 @@ public class Implementation {
 
                                     }
 
-                                    else if (Mainpp.opt2 == 2) { // "Play one round" CREATE PLAYER MENU
+                                    else if (Mainpp.opt2 == 2) { // "Play one round" PLAYER MENU
 
 
 
                                         Dis.playerOption();
                                         int opt3 = scan.nextInt();
 
-                                        if(opt3 == 1)
-                                        {
-                                            for (int x = 0; x < Mainpp.gameList.size(); x++)
-                                            {
-
+                                        if(opt3 == 1) {
+                                           // try {
                                                 Dis.display3();
                                                 Wheel.betOptions();
-                                               //Mainpp.gameList.get(x).makeBet(scan);
-                                                for(int play = 0; i < Mainpp.gameList.get(x).playersInGame.size(); play++) {
-                                                    Mainpp.gameList.get(x).playersInGame.get(play).makeBet(scan);
+
+                                                for (int x = 0; x < Mainpp.gameList.size() - 1; x++) {
+                                                    System.out.println("Game #" + (x + 1));
+                                                    //Mainpp.gameList.get(x).makeBet(scan);
+                                                    for (int play = 0; i < Mainpp.gameList.get(gameIndex).playersInGame.size() - 1; play++) {
+                                                        Mainpp.gameList.get(gameIndex).playersInGame.get(play).makeBet(scan);
+
+                                                    }
+                                                    System.out.println("Finished ");
+
+                                                    System.out.println("Spinning Wheel");
+                                                    Wheel.spin();
                                                 }
                                             }
-
-
-                                            Wheel.spin();
+//                                            catch (IndexOutOfBoundsException e) {
+//
+//                                            }
                                         }
-
-
-
 
                                     }
 
@@ -102,7 +105,6 @@ public class Implementation {
                                         System.out.println("House Money: $" + Mainpp.gameList.get(gameIndex).houseMoney );
                                         for(int j = Mainpp.gameList.get(gameIndex).transactionLines.size() - 1; j > Mainpp.gameList.get(gameIndex).transactionLines.size() - 4; j-- ) {
                                             System.out.println(Mainpp.gameList.get(gameIndex).transactionLines.get(i).toString());
-
                                         }
 
                                     }
@@ -111,14 +113,16 @@ public class Implementation {
                                         z = true;
                                     }
                                 }
-                            }
+
                             else if( tracker == 0 ) { // execute if we cant find the
 
                                 System.out.println("Game Choice not found, please select from the given list.");
 
-                            }
+                            } 
                         }
-                    }
+                        
+                    } 
+            }
 
                     break;
                 // invoke game selection
