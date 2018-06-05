@@ -45,7 +45,10 @@ public class Game {
             return false;
         }
     }
-
+    
+    public void addPlayer(Player p) {
+        playersInGame.add(p);
+    }
 
     public static void printPlayers() {
         for (int i = 0; i < playersInGame.size(); i++) {
