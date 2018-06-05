@@ -1,36 +1,34 @@
-
 import java.util.ArrayList;
-import java.util.Scanner;
 
+import java.util.LinkedList;
+
+import java.util.Queue;
+
+import java.util.Scanner;
 
 public class Mainpp {
 
+	public static ArrayList<Game> gameList = new ArrayList<Game>();
 
-    public static ArrayList<Game> gameList = new ArrayList<Game>();
+	public static int opt1;
 
-    public static int opt1,opt2 = 0;
+	public static void main(String[] args) {
 
+		gameList.add(new Game("1", 50, 5000));
 
-    public static void main(String[] args) {
+		gameList.add(new Game("2", 50, 10000));
 
-        gameList.add(new Game("1",50, 5000));
-        gameList.add(new Game("2", 500, 10000));
+		Player p1 = new NormalPlayer(5000);
+		
+		Player p2= new Player(8600);
 
+		Implementation.waitingPlayers.offer(p1); // experimenting not important
+		Implementation.waitingPlayers.offer(p2);
 
+		Scanner scan = new Scanner(System.in);
 
-        Player p1 = new Player( 500);
-        Implementation.waitingPlayers.offer(p1); //experimenting not important
+		Implementation.implement(scan);
 
-
-        Scanner scan= new Scanner(System.in);
-
-        Implementation.implement(scan);
-
-    }
-
-
-
-
-
+	}
 
 }
